@@ -107,7 +107,7 @@
     <None Include="MyNativeDllUwpIntegApp_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MySimpleNativeDll.dll">
+    <Content Include="MySimpleNativeDll2.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Properties\Default.rd.xml" />

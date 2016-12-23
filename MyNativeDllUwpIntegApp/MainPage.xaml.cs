@@ -38,7 +38,7 @@ namespace MyNativeDllUwpIntegApp
             await dlg.ShowAsync();
         }
 
-        [DllImport("MySimpleNativeDll")]
+        [DllImport("MySimpleNativeDll2")]
         static extern int Add(int x, int y);
 
     }
