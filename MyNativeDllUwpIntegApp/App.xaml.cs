@@ -77,6 +77,10 @@ namespace MyNativeDllUwpIntegApp
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+
+
+
+            this.DebugSettings.EnableFrameRateCounter = false;
         }
 
         /// <summary>

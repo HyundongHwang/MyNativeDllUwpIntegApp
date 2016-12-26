@@ -14,3 +14,32 @@
 
 
 // TODO: reference additional headers your program requires here
+
+
+
+// C RunTime Header Files
+#include <stdlib.h>
+#include <malloc.h>
+#include <memory.h>
+#include <tchar.h>
+
+#define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS      // some CString constructors will be explicit
+
+#include <atlbase.h>
+#include <atlstr.h>
+
+// TODO: reference additional headers your program requires here
+
+//#include <atlwin.h>
+#include <atltypes.h>
+#include <atlcoll.h>
+//#include <atlimage.h>
+#include <atlfile.h>
+#include <cstdarg>
+#include <Dbghelp.h>
+#include <locale.h>
+#include <time.h>
+#include <list>
+using namespace ATL;
+
+#include <process.h>

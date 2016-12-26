@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
@@ -33,13 +35,54 @@ namespace MyNativeDllUwpIntegApp
         {
             base.OnNavigatedTo(e);
 
+            MyRegisterLogFunc(log => 
+            {
+                Debug.WriteLine(log);
+            });
+
             var result = Add(1, 2);
-            var dlg = new MessageDialog($"result : {result}");
-            await dlg.ShowAsync();
+            this.TbLog.Text += $"result : {result}\n";
+
+            var result2 = GetStr();
+
+            var sb = new StringBuilder();
+            MyStrCpy(sb, "abc");
+
+            var buf = new byte[] { 0x30, 0x31, 0x32, 0x33, 0x34 };
+
+            for (int i = 0; i < 10; i++)
+            {
+                var result3 = MyPassByteArray(buf, i);
+            }
+
+            var result4 = MyStrConcat("aa", "bb");
         }
 
-        [DllImport("MySimpleNativeDll2")]
+        [DllImport("MySimpleNativeDll")]
         static extern int Add(int x, int y);
 
+        [DllImport("MySimpleNativeDll")]
+        [return: MarshalAs(unmanagedType:UnmanagedType.LPWStr)]
+        static extern string GetStr();
+
+        //MYSIMPLENATIVEDLL_API void MyStrCpy(LPWSTR wStr, LPCWSTR wStr2)
+        [DllImport("MySimpleNativeDll")]
+        static extern void MyStrCpy(StringBuilder wStr, string wStr2);
+
+        //MYSIMPLENATIVEDLL_API LPCWSTR MyPassByteArray(unsigned char* pBuf, int iIdx)
+        [DllImport("MySimpleNativeDll")]
+        [return: MarshalAs(unmanagedType: UnmanagedType.LPWStr)]
+        static extern string MyPassByteArray(byte[] pBuf, int iIdx);
+
+        //MYSIMPLENATIVEDLL_API LPCWSTR MyStrConcat(LPCSTR szStr, LPCSTR szStr2)
+        [DllImport("MySimpleNativeDll")]
+        [return: MarshalAs(unmanagedType: UnmanagedType.LPWStr)]
+        static extern string MyStrConcat(string szStr, string szStr2);
+
+        //MYSIMPLENATIVEDLL_API void MyRegisterLogFunc(PFUNC_MYCALLBACK pFuncLog);
+        [DllImport("MySimpleNativeDll")]
+        static extern void MyRegisterLogFunc(PFUNC_MYCALLBACK pFuncLog);
+
+        public delegate void PFUNC_MYCALLBACK([MarshalAs(unmanagedType:UnmanagedType.LPWStr)]string log);
     }
 }
